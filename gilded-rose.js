@@ -6,6 +6,8 @@ export class Item {
   }
 }
 
+
+
 export let items = [];
 
 items.push(new Item("+5 Dexterity Vest", 10, 20));
@@ -17,51 +19,40 @@ items.push(new Item("Conjured Mana Cake", 3, 6));
 
 export const updateQuality = () => {
   for (let item of items) {
-    if (
-      item.name != "Aged Brie" &&
-      item.name != "Backstage passes to a TAFKAL80ETC concert"
-    ) {
-      if (item.quality > 0) {
-        if (item.name != "Sulfuras, Hand of Ragnaros") {
-          item.quality = item.quality - 1;
-        }
+    if (item.quality >= 0){
+      item.sellIn-- // Constant decrementing value
+
+      if (item.name === "Sulfuras, Hand of Ragnaros" ){ // return, do not decrement quality.
+        continue;
       }
-    } else {
-      if (item.quality < 50) {
-        item.quality = item.quality + 1;
-        if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-          if (item.sellIn < 11) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1;
-            }
-          }
-          if (item.sellIn < 6) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1;
-            }
-          }
-        }
+      
+      if (item.name === 'Aged Brie' && item.quality <= 50){
+          item.quality++
+          continue;
       }
-    }
-    if (item.name != "Sulfuras, Hand of Ragnaros") {
-      item.sellIn = item.sellIn - 1;
-    }
-    if (item.sellIn < 0) {
-      if (item.name != "Aged Brie") {
-        if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
-          if (item.quality > 0) {
-            if (item.name != "Sulfuras, Hand of Ragnaros") {
-              item.quality = item.quality - 1;
-            }
-          }
-        } else {
-          item.quality = item.quality - item.quality;
+
+      }
+      // TAFKAL80ETC concert execution
+      if (item.name == 'Backstage passes to a TAFKAL80ETC concert'){ 
+        if (item.sellIn <= 10 && item.sellIn >= 5){
+          item.quality += 2
+        } else if (item.sellIn <= 5 && item.sellIn >= 0){
+          item.quality += 3
+        } else if (item.sellIn < 0){
+          item.quality = 0
         }
+        continue;
+      }
+
+      // Standard Item Execution
+      if (item.sellIn < 0 || item.name.toLowerCase().includes('conjured')){
+        item.quality -= 2
       } else {
-        if (item.quality < 50) {
-          item.quality = item.quality + 1;
-        }
+        item.quality--
       }
     }
-  }
-};
+}
+
+console.log(items)
+updateQuality()
+console.log(items)
