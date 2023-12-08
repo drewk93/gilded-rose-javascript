@@ -28,3 +28,15 @@ describe("updateQuality", () => {
     expect(testItem5.sellIn).toBe(1)
   });
 });
+
+describe("updateItem", () => {
+  it ("reduces quality and sellIn of basic items by 1", () => {
+
+    const item = new Item("basic", 5, 3);
+    updateItem(item)
+    expect(item.quality).toBe(2);
+    expect(item.sellIn).toBe(4);
+
+  })
+});
+
