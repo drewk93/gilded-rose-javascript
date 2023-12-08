@@ -85,7 +85,7 @@ export const updateItem = (item, days) => {
     item.quality = Math.max(item.quality, 0); // Set floor value of quality to 0;
     item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
     day++
-  } while(day <= days)
+  } while(day <= days);
 }
 
 export const updateLegendary = (item, days) =>{} // Implicit return;
@@ -102,7 +102,7 @@ export const updateCheese = (item, days) =>{
     item.quality = Math.max(item.quality, 0); // set floor of quality to 0
     item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
     day++
-  } while(day <= days)
+  } while(day <= days);
 }
 
 export const updateConjured = (item, days) => {
@@ -117,7 +117,7 @@ export const updateConjured = (item, days) => {
       item.quality = Math.max(item.quality, 0);  // Set floor value of quality to 0
       item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
       day++
-    } while (day <= days)
+    } while (day <= days);
 }
 
 export const updateBackstagePass = (item, days) => {
