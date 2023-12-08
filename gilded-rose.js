@@ -2,7 +2,6 @@
 // ---CLASSES---
 //
 
-
 export class Item {
   constructor(name, sellIn, quality) {
     this.name = name;
@@ -70,9 +69,8 @@ export const updateQuality = (days) => {
     });
 }
 
-// Callback Update Functions
+// CALLBACKS
 
-// checks basic items
 export const updateItem = (item, days) => {
   let day = 1;
   do {
@@ -136,7 +134,3 @@ export const updateBackstagePass = (item, days) => {
     day++
   } while (day <= days);
 }
-
-console.log(items)
-updateQuality(2)
-console.log(items)
