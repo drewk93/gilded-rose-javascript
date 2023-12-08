@@ -47,6 +47,7 @@ describe("updateQuality", () => {
     expect(testCheese.sellIn).toBe(-13);
   });
 })
+
 describe("updateItem", () => {
   it ("reduces quality and sellIn of basic items by 1", () => {
 
@@ -57,6 +58,15 @@ describe("updateItem", () => {
 
   })
 });
+
+describe("updateItem", () => {
+  it("reduces quality and sellIn of basic items by 1", () => {
+    const item = new Item("+5 Dexterity Vest", 10, 20);
+    updateItem(item, 2)
+    expect(item.quality).toBe(18);
+    expect(item.sellIn).toBe(8);
+  })
+})
 
 describe("updateLegendary", () => {
   it ("As 'Legendary' item, does not reduce quality and leaves the sell by date to default", () => {

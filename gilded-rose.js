@@ -55,76 +55,88 @@ items.push(new Conjured("Conjured Mana Cake", 3, 6));
 
 // Master Update Quality Function
 export const updateQuality = (days) => {
-  let day = 1
-  do {
     items.forEach(item => {
       if (item.constructor === Item) {
-        updateItem(item);
+        updateItem(item, days);
       } else if (item instanceof Legendary) {
-        updateLegendary();
+        updateLegendary(item, days);
       } else if (item instanceof Cheese) {
-        updateCheese(item);
+        updateCheese(item, days);
       } else if (item instanceof Conjured) {
-        updateConjured(item);
+        updateConjured(item, days);
       } else if (item instanceof BackstagePass) {
-        updateBackstagePass(item);
+        updateBackstagePass(item, days);
       }
     });
-    day++
-  }while(day <= days)
 }
 
 // Callback Update Functions
 
 // checks basic items
 export const updateItem = (item, days) => {
-  item.sellIn-- // decrement sellIn date
-  if(item.sellIn < 0){
-    item.quality -= 2
-  } else{
-  item.quality--
-  }
-  item.quality = Math.max(item.quality, 0); // Set floor value of quality to 0;
-  item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
+  let day = 1;
+  do {
+    item.sellIn-- // decrement sellIn date
+    if(item.sellIn < 0){
+      item.quality -= 2
+    } else{
+    item.quality--
+    }
+    item.quality = Math.max(item.quality, 0); // Set floor value of quality to 0;
+    item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
+    day++
+  } while(day <= days)
 }
 
-export const updateLegendary = (item) =>{} // Implicit return;
+export const updateLegendary = (item, days) =>{} // Implicit return;
 
-export const updateCheese = (item) =>{
-  item.sellIn--; // decrement sellIn date
-  if(item.sellIn >= 0){
-    item.quality++
-  } else if (item.sellIn < 0)  {
-    item.quality-= 2
-  }
-  item.quality = Math.max(item.quality, 0); // set floor of quality to 0
-  item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
+export const updateCheese = (item, days) =>{
+  let day = 1; 
+  do{
+    item.sellIn--; // decrement sellIn date
+    if(item.sellIn >= 0){
+      item.quality++
+    } else if (item.sellIn < 0)  {
+      item.quality-= 2
+    }
+    item.quality = Math.max(item.quality, 0); // set floor of quality to 0
+    item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
+    day++
+  } while(day <= days)
 }
 
-export const updateConjured = (item) => {
-  item.sellIn--; // decrement sellIn date
-  if (item.sellIn >= 0) {
-    item.quality -= 2;
-  } else if (item.sellIn < 0){
-    item.quality -= 4;
-  }
-  item.quality = Math.max(item.quality, 0);  // Set floor value of quality to 0
-  item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
+export const updateConjured = (item, days) => {
+    let day = 1;
+    do{
+      item.sellIn--; // decrement sellIn date
+      if (item.sellIn >= 0) {
+        item.quality -= 2;
+      } else if (item.sellIn < 0){
+        item.quality -= 4;
+      }
+      item.quality = Math.max(item.quality, 0);  // Set floor value of quality to 0
+      item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
+      day++
+    } while (day <= days)
 }
 
-export const updateBackstagePass = (item) => {
-  item.sellIn--; // decrement sellIn date
-  if(item.sellIn <= 10 && item.sellIn >= 5){
-    item.quality += 2
-  } else if (item.sellIn <= 5 && item.sellIn >= 0){
-    item.quality +=3
-  } else if (item.sellIn < 0){
-    item.quality = 0;
-  }
-  item.quality = Math.max(item.quality, 0); // Set floor value of quality to 0
-  item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
+export const updateBackstagePass = (item, days) => {
+  let day = 1;
+  do{
+    item.sellIn--; // decrement sellIn date
+    if(item.sellIn <= 10 && item.sellIn >= 5){
+      item.quality += 2
+    } else if (item.sellIn <= 5 && item.sellIn >= 0){
+      item.quality +=3
+    } else if (item.sellIn < 0){
+      item.quality = 0;
+    }
+    item.quality = Math.max(item.quality, 0); // Set floor value of quality to 0
+    item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
+    day++
+  } while (day <= days);
 }
 
 console.log(items)
-updateQuality(15)
+updateQuality(2)
 console.log(items)
