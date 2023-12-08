@@ -46,7 +46,7 @@ describe("updateQuality", () => {
     expect(testCheese.quality).toBe(0);
     expect(testCheese.sellIn).toBe(-13);
   });
-})
+});
 
 describe("updateItem", () => {
   it ("reduces quality and sellIn of basic items by 1", () => {
@@ -56,7 +56,7 @@ describe("updateItem", () => {
     expect(item.quality).toBe(2);
     expect(item.sellIn).toBe(4);
 
-  })
+  });
 });
 
 describe("updateItem", () => {
@@ -65,8 +65,8 @@ describe("updateItem", () => {
     updateItem(item, 2)
     expect(item.quality).toBe(18);
     expect(item.sellIn).toBe(8);
-  })
-})
+  });
+});
 
 describe("updateLegendary", () => {
   it ("As 'Legendary' item, does not reduce quality and leaves the sell by date to default", () => {
@@ -74,8 +74,8 @@ describe("updateLegendary", () => {
     updateLegendary(item);
     expect(item.quality).toBe(80);
     expect(item.sellIn).toBe(0)
-  })
-})
+  });
+});
 
 describe("updateCheese", () => {
   it("As sellIn decreases by 1 day, quality increases by 1. After sellIn is less than 0, quality then decreases by 1.", () => {
@@ -83,8 +83,8 @@ describe("updateCheese", () => {
     updateCheese(item);
     expect(item.quality).toBe(1);
     expect(item.sellIn).toBe(1);
-  })
-})
+  });
+});
 
 describe("updateConjured", () => {
   it("As sellIn decreases by 1, the quality decreases by 2. After sellIn is less than 0, quality decreases by 4", () => {
@@ -92,8 +92,8 @@ describe("updateConjured", () => {
     updateConjured(item);
     expect(item.quality).toBe(4);
     expect(item.sellIn).toBe(2);
-  })
-})
+  });
+});
 
 describe("updateBackstagePass", ()=> {
   it("When item is between 10 and 5 days, value increases by 2. When item is between 5 and 0 days, value increase by 3.", () => {
@@ -101,5 +101,5 @@ describe("updateBackstagePass", ()=> {
     updateBackstagePass(item);
     expect(item.quality).toBe(13);
     expect(item.sellIn).toBe(9);
-  })
-})
+  });
+});

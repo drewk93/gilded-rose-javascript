@@ -13,25 +13,25 @@ export class Item {
 
 export class Legendary extends Item {
   constructor(name, sellIn, quality){
-    super(name, sellIn, quality);// Converts input to a boolean value
+    super(name, sellIn, quality);
   }
 }
 
 export class Cheese extends Item{
   constructor(name, sellIn, quality){
-    super(name, sellIn, quality)
+    super(name, sellIn, quality);
   }
 }
 
 export class Conjured extends Item{
   constructor(name, sellIn, quality){
-    super(name, sellIn, quality)
+    super(name, sellIn, quality);
   }
 }
 
 export class BackstagePass extends Item{
   constructor(name, sellIn, quality){
-    super(name, sellIn, quality)
+    super(name, sellIn, quality);
   }
 }
 
