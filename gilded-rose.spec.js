@@ -24,6 +24,29 @@ describe("updateQuality", () => {
   });
 });
 
+describe("updateQuality", () => {
+  it("executes specific updates based on that item's subclass", () => {
+    const testBasic = new Item("+5 Dexterity Vest", 10, 20);
+    const testConjured = new Conjured("Conjured Sword of Doom", 3, 6 );
+    const testBackstagePass = new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 15, 20);
+    const testLegendary = new Legendary("Sulfuras, Hand of Ragnaros", 0, 80);
+    const testCheese = new Cheese("Aged Brie", 2, 0);
+
+    items.push(testBasic, testConjured, testBackstagePass, testLegendary, testCheese);
+    updateQuality(15);
+
+    expect(testBasic.quality).toBe(0);
+    expect(testBasic.sellIn).toBe(-5);
+    expect(testConjured.quality).toBe(0);
+    expect(testConjured.sellIn).toBe(-12);
+    expect(testBackstagePass.quality).toBe(47);
+    expect(testBackstagePass.sellIn).toBe(0);
+    expect(testLegendary.quality).toBe(80);
+    expect(testLegendary.sellIn).toBe(0);
+    expect(testCheese.quality).toBe(0);
+    expect(testCheese.sellIn).toBe(-13);
+  });
+})
 describe("updateItem", () => {
   it ("reduces quality and sellIn of basic items by 1", () => {
 

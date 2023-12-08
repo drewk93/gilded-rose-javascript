@@ -46,7 +46,7 @@ items.push(new Item("+5 Dexterity Vest", 10, 20));
 items.push(new Cheese("Aged Brie", 2, 0));
 items.push(new Item("Elixir of the Mongoose", 5, 7));
 items.push(new Legendary("Sulfuras, Hand of Ragnaros", 0, 80));
-items.push(new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 0, 20));
+items.push(new BackstagePass("Backstage passes to a TAFKAL80ETC concert",15 , 20));
 items.push(new Conjured("Conjured Mana Cake", 3, 6));
 
 // 
@@ -54,41 +54,30 @@ items.push(new Conjured("Conjured Mana Cake", 3, 6));
 //
 
 // Master Update Quality Function
-export const updateQuality = () => {
-  for (let item of items) {
-    // Basic Items
-    if (item.constructor === Item){ // Calls item.constructor directly to avoid hitting subclasses and iterating over them.
-      updateItem(item);
-      continue;
-    }
-    // Legendary Items
-    if (item instanceof Legendary) { 
-      updateLegendary();
-      continue; // end execution on item, switch to next item;
-    }
-    // Cheese Items
-    if (item instanceof Cheese){
-        updateCheese(item)
-        continue; // end execution on item, switch to next item;
-    }
-    // Conjured Items
-    if (item instanceof Conjured) {
-      updateConjured(item)
-      continue; // end execution on item, switch to next item;
-    }
-    // BackstagePass Item
-    if (item instanceof BackstagePass){
-      updateBackstagePass(item);
-      continue; // end execution on item, switch to next item;
-    }
-    // Basic Items
-    }
+export const updateQuality = (days) => {
+  let day = 1
+  do {
+    items.forEach(item => {
+      if (item.constructor === Item) {
+        updateItem(item);
+      } else if (item instanceof Legendary) {
+        updateLegendary();
+      } else if (item instanceof Cheese) {
+        updateCheese(item);
+      } else if (item instanceof Conjured) {
+        updateConjured(item);
+      } else if (item instanceof BackstagePass) {
+        updateBackstagePass(item);
+      }
+    });
+    day++
+  }while(day <= days)
 }
 
 // Callback Update Functions
 
 // checks basic items
-export const updateItem = (item) => {
+export const updateItem = (item, days) => {
   item.sellIn-- // decrement sellIn date
   if(item.sellIn < 0){
     item.quality -= 2
@@ -96,6 +85,7 @@ export const updateItem = (item) => {
   item.quality--
   }
   item.quality = Math.max(item.quality, 0); // Set floor value of quality to 0;
+  item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
 }
 
 export const updateLegendary = (item) =>{} // Implicit return;
@@ -108,16 +98,18 @@ export const updateCheese = (item) =>{
     item.quality-= 2
   }
   item.quality = Math.max(item.quality, 0); // set floor of quality to 0
+  item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
 }
 
 export const updateConjured = (item) => {
   item.sellIn--; // decrement sellIn date
   if (item.sellIn >= 0) {
     item.quality -= 2;
-  } else {
+  } else if (item.sellIn < 0){
     item.quality -= 4;
   }
   item.quality = Math.max(item.quality, 0);  // Set floor value of quality to 0
+  item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
 }
 
 export const updateBackstagePass = (item) => {
@@ -130,4 +122,9 @@ export const updateBackstagePass = (item) => {
     item.quality = 0;
   }
   item.quality = Math.max(item.quality, 0); // Set floor value of quality to 0
+  item.quality = Math.min(item.quality, 50); // Set ceiling value of quality to 50
 }
+
+console.log(items)
+updateQuality(15)
+console.log(items)
